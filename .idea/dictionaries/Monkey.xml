@@ -2,6 +2,7 @@
   <dictionary name="Monkey">
     <words>
       <w>arduino</w>
+      <w>baudrate</w>
     </words>
   </dictionary>
 </component>

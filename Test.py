@@ -7,12 +7,26 @@ The final app will be to control a RGB light strip connected to an Arduino Uno
 '''
 
 import serial
+import serial.tools.list_ports as Port_List
 from tkinter import *
 
-# This may need to be changed from COM3 to the port your Arduino is connected to.
-# ToDo: create a GUI to change ports in the compiled version
-usb = serial.Serial('COM3', 9600)
 
+def Connect():
+    # Scan the ports for an arduino or arduino clone
+    Ports = list(Port_List.comports())
+
+    commPort = 'None'
+
+    for P in Ports:
+        strPort = str(P)
+        if 'Arduino' in strPort or 'CH340' in strPort:
+            splitPort = strPort.split(' ')
+            commPort = splitPort[0]
+            return serial.Serial(commPort, 9600)
+    return 'None'
+
+
+usb = Connect()
 
 def light_on():
     '''
@@ -33,13 +47,16 @@ window = Tk()
 
 window.title("Light Switch")
 
+
+
+
 # Add an on button and a off button to the window and assign their command functions
 on_switch = Button(window, text = "On", command = light_on)
 off_switch = Button(window, text = "Off", command = light_off)
 
 # Position the buttons on the window
-on_switch.grid( row = 0, column = 0)
-off_switch.grid( row = 0, column = 1)
+on_switch.grid( row = 2, column = 0)
+off_switch.grid( row = 2, column = 1)
 
 # Start the control loop for the main window
 window.mainloop()

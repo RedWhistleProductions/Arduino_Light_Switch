@@ -19,10 +19,12 @@ def Connect():
 
     for P in Ports:
         strPort = str(P)
+        #CH340 is a generic Arduino from China
         if 'Arduino' in strPort or 'CH340' in strPort:
             splitPort = strPort.split(' ')
             commPort = splitPort[0]
             return serial.Serial(commPort, 9600)
+    print("Error: Arduino not found")
     return 'None'
 
 
@@ -37,21 +39,30 @@ def serial_out(C):
 # Setup a basic window and set the title
 window = Tk()
 
-window.title("Light Switch")
-
-
-
+window.title("Light Strip")
+buttonWidth = 40
 
 # Add an on button and a off button to the window and assign their command functions
-off_switch = Button(window, text = "Off", command = lambda: serial_out('0')).grid(row=1)
-White = Button(window, text = "White", command = lambda: serial_out('1')).grid( row = 2)
-Red = Button(window, text = "Red", background = "Red", command = lambda: serial_out('2')).grid( row = 3)
-Orange = Button(window, text = "Orange", background = "Orange", command = lambda: serial_out('3')).grid( row=4)
-Yellow = Button(window, text = "Yellow", background = "Yellow", command = lambda: serial_out('4')).grid( row =5)
-Green = Button(window, text = "Green", background = "Green", command =  lambda: serial_out('5')).grid(row =6)
-Blue = Button(window, text = "Blue", background = "Blue", command = lambda: serial_out('6')).grid(row = 7)
-Cyan = Button(window, text = "Cyan", background = "Cyan", command = lambda: serial_out('7')).grid(row = 8)
-Violet = Button(window, text = "Violet", background = "Purple", command = lambda: serial_out('8')).grid(row = 9)
+off_switch = Button(window, width = buttonWidth, text = "Off", foreground = "White", background = "Black",
+                    command = lambda: serial_out('0')).grid(row=1)
+White = Button(window, width = buttonWidth, text = "White", background = "White",
+               command = lambda: serial_out('1')).grid( row = 2)
+Red = Button(window, width = buttonWidth, text = "Red", background = "Red",
+             command = lambda: serial_out('2')).grid( row = 3)
+Orange = Button(window, width = buttonWidth, text = "Orange", background = "Orange",
+                command = lambda: serial_out('3')).grid( row=4)
+Yellow = Button(window, width = buttonWidth, text = "Yellow", background = "Yellow",
+                command = lambda: serial_out('4')).grid( row =5)
+Green = Button(window, width = buttonWidth, text = "Green", background = "Green",
+               command =  lambda: serial_out('5')).grid(row =6)
+Blue = Button(window, width = buttonWidth, text = "Blue",
+              background = "Blue", command = lambda: serial_out('6')).grid(row = 7)
+Cyan = Button(window, width = buttonWidth, text = "Cyan",
+              background = "Cyan", command = lambda: serial_out('7')).grid(row = 8)
+Violet = Button(window, width = buttonWidth, text = "Violet",
+                background = "Purple", command = lambda: serial_out('8')).grid(row = 9)
+Rainbow = Button(window, width = buttonWidth, text = "Rainbow",
+                 command = lambda: serial_out('9')).grid(row = 10)
 
 
 
